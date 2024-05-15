@@ -1,11 +1,14 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import Input from "./Input";
+import { countWords } from "../helpers/utilities";
+import { File } from "../App";
 
 interface FileViewerProps {
-  file: { name: string; content: string };
+  file: File;
+  onClose?: Dispatch<SetStateAction<File | null>>;
 }
 
-export default function FileViewer({ file }: FileViewerProps) {
+export default function FileViewer({ file, onClose }: FileViewerProps) {
   const [newContent, setNewContent] = useState<string>("");
   const [occurrences, setOccurrences] = useState<number>(0);
 
@@ -31,8 +34,16 @@ export default function FileViewer({ file }: FileViewerProps) {
   return (
     <section className="fade-in flex max-w-screen-md w-full flex-grow flex-col rounded-md border border-[#969696]/40 shadow-md">
       <div className="flex items-center justify-between rounded-t-md bg-[#F5F5F5] p-1 px-4 text-gray-700">
-        <div className="grid h-4 w-4 place-items-center rounded-full bg-[#FF5F57]">
-          <svg width="1rem" height="1rem" viewBox="0 0 24 24">
+        <button
+          onClick={() => onClose && onClose(null)}
+          className="grid h-4 w-4 place-items-center rounded-full bg-[#FF5F57]"
+        >
+          <svg
+            className="text-black/45"
+            width="1rem"
+            height="1rem"
+            viewBox="0 0 24 24"
+          >
             <path
               fill="currentColor"
               fillRule="evenodd"
@@ -40,7 +51,7 @@ export default function FileViewer({ file }: FileViewerProps) {
               clipRule="evenodd"
             />
           </svg>
-        </div>
+        </button>
         <h2 className="">{file.name}</h2>
         <div className="">
           <Input
@@ -60,14 +71,16 @@ export default function FileViewer({ file }: FileViewerProps) {
       />
       <div className="flex w-full bg-[#F5F5F5] px-4 py-1 text-zinc-600 gap-x-4">
         <p className="text-sm">
-          Total Matches:
-          <span className="text-sm font-medium text-zinc-800 ml-2">
-            {occurrences}
+          Word count:
+          <span className="text-sm font-medium text-zinc-800 ml-1">
+            {countWords(file.content)}{" "}
           </span>
         </p>
         <p className="text-sm">
-          Word count:
-          <span className="text-sm font-medium text-zinc-800"> 45 </span>
+          Total Matches:
+          <span className="text-sm font-medium text-zinc-800 ml-1">
+            {occurrences}
+          </span>
         </p>
       </div>
     </section>

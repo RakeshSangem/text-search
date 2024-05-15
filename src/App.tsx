@@ -29,7 +29,7 @@ function App() {
 
   return (
     <main className="min-h-screen px-4">
-      <div className="flex min-h-screen flex-col items-center py-10">
+      <div className="flex min-h-screen flex-col items-center py-10 fade-in">
         <h1 className="mb-4 text-4xl font-normal tracking-normal">
           Text Search
         </h1>
@@ -41,7 +41,7 @@ function App() {
             className="mb-4 rounded border border-gray-300 p-2"
           />
         ) : (
-          <FileViewer file={file} />
+          <FileViewer file={file} onClose={setFile} />
         )}
       </div>
     </main>
