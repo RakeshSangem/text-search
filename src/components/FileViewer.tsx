@@ -50,8 +50,15 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
     };
   }, []);
 
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const inputValue = inputRef.current?.value;
+    if (!inputValue || inputValue.trim() === "") return;
+    setSearchHistory((prev) => [inputValue, ...prev]);
+  };
+
   return (
-    <section className="flex gap-4 flex-col sm:max-h-[80vh] sm:flex-row mx-auto justify-center">
+    <section className="flex gap-4 flex-col sm:h-[80vh] sm:flex-row mx-auto justify-center">
       <section className="fade-in flex max-w-screen-md w-full  flex-col rounded-md border border-[#969696]/40 shadow-md">
         <div className="relative flex items-center justify-between rounded-t-md bg-[#F5F5F5] p-1 px-4 text-gray-700">
           <button
@@ -75,7 +82,10 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
           <h2 className="absolute left-1/2 -translate-x-1/2 hidden sm:block">
             {file.name}
           </h2>
-          <div className="flex items-center space-x-1 relative">
+          <form
+            className="flex items-center space-x-1 relative"
+            onSubmit={onFormSubmit}
+          >
             <div className="relative">
               <Input
                 ref={inputRef}
@@ -89,17 +99,12 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
               </div>
             </div>
             <button
-              onClick={() => {
-                setSearchHistory((prev) => [
-                  inputRef.current?.value ?? "",
-                  ...prev,
-                ]);
-              }}
-              className="active:from-transparent-black rounded bg-[#007AFF] bg-gradient-to-b from-white/10 to-transparent px-2 py-0.5 text-sm text-white shadow-md"
+              type="submit"
+              className="active:from-transparent-black active:scale-95 rounded bg-[#007AFF] bg-gradient-to-b from-white/10 to-transparent px-2 py-0.5 text-sm text-white shadow-md"
             >
               Search
             </button>
-          </div>
+          </form>
         </div>
         {/* Text content */}
         <div
