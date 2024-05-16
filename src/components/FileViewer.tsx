@@ -1,6 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import Input from "./Input";
 import { countWords } from "../helpers/utilities";
+
+import Input from "./Input";
 import { File } from "../App";
 
 interface FileViewerProps {
@@ -16,16 +17,17 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
     const searchValue = e.target.value;
     if (!file) return;
 
-    const regex = new RegExp(searchValue, "gi");
+    const regex = new RegExp(`(${searchValue})`, "gi");
 
     const matches = file.content.match(regex);
 
+    // Occurrences
     const count = searchValue ? (matches ? matches.length : 0) : 0;
     setOccurrences(count);
 
     const newContent = file.content.replace(
       regex,
-      `<mark class="bg-yellow-300 rounded-md">${searchValue}</mark>`
+      `<mark class="bg-yellow-300 rounded-md">$1</mark>`
     );
 
     setNewContent(newContent);
