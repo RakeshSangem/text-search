@@ -29,7 +29,7 @@ function App() {
 
   return (
     <main className="min-h-screen px-4">
-      <div className="flex min-h-screen flex-col items-center py-10 fade-in">
+      <div className="flex flex-col items-center py-10 fade-in">
         <h1 className="mb-4 text-4xl font-normal tracking-normal">
           Text Search
         </h1>
