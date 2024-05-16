@@ -35,7 +35,7 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
 
   return (
     <section className="fade-in flex max-w-screen-md w-full flex-grow flex-col rounded-md border border-[#969696]/40 shadow-md">
-      <div className="flex items-center justify-between rounded-t-md bg-[#F5F5F5] p-1 px-4 text-gray-700">
+      <div className="relative flex items-center justify-between rounded-t-md bg-[#F5F5F5] p-1 px-4 text-gray-700">
         <button
           onClick={onClose}
           className="group grid h-4 w-4 place-items-center rounded-full bg-[#FF5F57] hover:bg-[#FF3F3F] focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-colors"
@@ -54,7 +54,7 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
             />
           </svg>
         </button>
-        <h2 className="">{file.name}</h2>
+        <h2 className="absolute left-1/2 -translate-x-1/2">{file.name}</h2>
         <div className="flex items-center space-x-1 relative">
           <div className="relative">
             <Input
