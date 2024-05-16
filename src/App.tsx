@@ -41,7 +41,7 @@ function App() {
             className="mb-4 rounded border border-gray-300 p-2"
           />
         ) : (
-          <FileViewer file={file} onClose={setFile} />
+          <FileViewer file={file} onClose={() => setFile(null)} />
         )}
       </div>
     </main>

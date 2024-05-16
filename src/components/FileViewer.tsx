@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { countWords } from "../helpers/utilities";
 
 import Input from "./Input";
@@ -6,7 +6,7 @@ import { File } from "../App";
 
 interface FileViewerProps {
   file: File;
-  onClose?: Dispatch<SetStateAction<File | null>>;
+  onClose?: () => void;
 }
 
 export default function FileViewer({ file, onClose }: FileViewerProps) {
@@ -37,7 +37,7 @@ export default function FileViewer({ file, onClose }: FileViewerProps) {
     <section className="fade-in flex max-w-screen-md w-full flex-grow flex-col rounded-md border border-[#969696]/40 shadow-md">
       <div className="flex items-center justify-between rounded-t-md bg-[#F5F5F5] p-1 px-4 text-gray-700">
         <button
-          onClick={() => onClose && onClose(null)}
+          onClick={onClose}
           className="group grid h-4 w-4 place-items-center rounded-full bg-[#FF5F57] hover:bg-[#FF3F3F] focus:outline-none focus:ring-2 focus:ring-red-500/50 transition-colors"
         >
           <svg
